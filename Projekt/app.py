@@ -152,12 +152,12 @@ def dokumente(subpath):
                     new_folder_path = os.path.join(current_path, folder_name)
                     if is_safe_path(base_dir, new_folder_path):
                         os.makedirs(new_folder_path, exist_ok=True)
-                        flash(f"Ordner '{folder_name}' wurde erstellt.")
+                        flash(f"Ordner '{folder_name}' wurde erstellt.", 'success')
                         log_action(f"Ordner erstellt: {os.path.join(safe_subpath, folder_name)}")
                     else:
-                        flash("Ungültiger Ordnerpfad.")
+                        flash("Ungültiger Ordnerpfad.", 'error')
                 else:
-                    flash("Ordnername darf nicht leer sein.")
+                    flash("Ordnername darf nicht leer sein.", 'error')
                     
             elif 'file' in request.files:
                 file = request.files['file']
@@ -166,12 +166,12 @@ def dokumente(subpath):
                     save_path = os.path.join(current_path, filename)
                     if is_safe_path(base_dir, save_path):
                         file.save(save_path)
-                        flash("Datei erfolgreich hochgeladen.")
+                        flash("Datei erfolgreich hochgeladen.", 'success')
                         log_action(f"Datei hochgeladen: {os.path.join(safe_subpath, filename)}")
                     else:
-                        flash("Ungültiger Dateipfad.")
+                        flash("Ungültiger Dateipfad.", 'error')
                 else:
-                    flash("Keine Datei ausgewählt.")
+                    flash("Keine Datei ausgewählt.", 'error')
                     
             return redirect(url_for('dokumente', subpath=safe_subpath))
         
