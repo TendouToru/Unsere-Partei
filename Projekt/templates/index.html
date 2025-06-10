@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wir gegen Die! - Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="content">
+            <header id="home-header">
+                <h1 class="headline">Wir gegen Die!</h1>
+                <p class="text">Admin Seite von Wir gegen Die!</p>
+            </header>
+
+            <!-- Live-Daten separat -->
+            <section class="live-panel">
+                <h3>📊 Live-Daten</h3>
+                <div class="live-items">
+                    <div class="live-item">👥 Admins Online: <span id="active-users">0</span></div>
+                    <div class="live-item">💬 Neue Nachrichten (heute): <span id="today-messages">0</span></div>
+                    <div class="live-item">📅 Nächster Termin: <span id="next-event">-</span></div>
+                </div>
+            </section>
+
+            <!-- Dashboard -->
+            <section class="dashboard">
+                <div class="card"><a href="{{ url_for('dokumente', subpath='') }}">📂 Dokumente</a></div>
+                <div class="card"><a href="{{ url_for('chat') }}">💬 Chat</a></div>
+                <div class="card"><a href="{{ url_for('list_users') }}">📋 Mitgliederliste</a></div>
+                <div class="card"><a href="{{ url_for('add_user') }}">➕ Mitglied hinzufügen</a></div>
+                <div class="card"><a href="{{ url_for('stats') }}">📊 Statistiken</a></div>
+                <div class="card"><a href="{{ url_for('show_log')}}">📄 Protokoll</a></div>
+                <div class="card"><a>⚙️ Einstellungen</a></div>
+                <div class="card"><a>🔒 Sicherheit</a></div>
+            </section>
+
+        </main>
+    </div>
+            <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>    
+            <script src="{{ url_for('static', filename='live.js') }}"></script>
+</body>
+</html>

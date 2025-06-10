@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+    <head>
+        <title>Wir gegen Die! - Statistiken</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    </head>
+
+    <body>
+        <div class="wrapper">
+
+        <div class="sidebar-toggle">
+            <button onclick="toggleSidebar()">☰ Menü</button>
+        </div>
+        
+            <aside class="sidebar">
+                <nav>
+                <a href="{{ url_for('home') }}">🏠 Zurück zur Startseite</a>
+                <a href="{{ url_for('dokumente', subpath='') }}">📂 Dokumente</a>
+                <a href="{{ url_for('list_users') }}">📋 Mitgliederliste</a>
+                <a href="{{url_for('chat')}}">💬 Chat</a>
+                <a href="{{ url_for('add_user') }}">➕ Mitglied hinzufügen</a>
+                <a href="{{ url_for('show_log')}}">📄 Protokoll</a>
+                </nav>
+            </aside>
+
+            <script>
+                function toggleSidebar() {
+                    document.querySelector('.sidebar').classList.toggle('sidebar-open');
+                }
+            </script>
+
+            <main class="content">
+                <header>
+                    <h1 class="headline">Statistiken</h1>
+                </header>
+                
+                    <ul class="stat-list">
+                        <li class="stat-item">👥 Mitglieder insgesamt: {{ num_users }}</li>
+                        <li class="stat-item">📄 Hochgeladene Dateien: {{ num_files }}</li>
+                    </ul>
+
+            </main>
+            
+        </div>
+            <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='live.js') }}"></script>
+    </body>
+
+
+</html>

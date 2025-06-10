@@ -1,0 +1,416 @@
+:root {
+    --primary: #2c3e50;
+    --secondary: #ecf0f1;
+    --accent: #3498db;
+    --text: #333;
+    --sidebar-width: 220px;
+    --error: #e74c3c;
+    --success: #2ecc71;
+}
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primary);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar (unverändert von deiner Originalversion) */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: #1a252f;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    text-decoration: underline;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #34495e;
+    transition: background-color 0.2s;
+}
+
+.sidebar nav a:hover {
+    background-color: var(--accent);
+}
+
+.sidebar-toggle {
+    display: none;
+    padding: 10px;
+    background-color: #1a252f;
+    text-align: left;
+}
+
+.sidebar-toggle button {
+    background-color: #34495e;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sidebar-toggle button:hover {
+    background-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: absolute;
+        left: -100%;
+        top: 0;
+        height: 100%;
+        z-index: 1000;
+        transition: left 0.3s ease-in-out;
+    }
+
+    .sidebar.sidebar-open {
+        left: 0;
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+}
+
+/* Content (angepasst um Konsistenz zu wahren) */
+.content {
+    flex: 1;
+    padding: 30px;
+    background-color: var(--secondary);
+}
+
+.headline {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.text {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 5px;
+}
+
+#home-header{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgb(0,0,0,1);
+}
+/* Dashboard Cards (original von dir) */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    text-decoration: none;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.card a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background-color: #f9f9f9;
+}
+
+/* User List (original von dir) */
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    margin-bottom: 10px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 1rem;
+    flex-wrap: wrap;
+}
+
+.user-info {
+    flex: 1;
+    padding-right: 10px;
+}
+
+.delete-user-form {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+    .user-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .delete-user-form {
+        align-self: flex-end;
+        margin-top: 10px;
+    }
+}
+
+/* Statistik (original von dir) */
+.stat-list {
+    padding: 20px;
+    display: grid;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+.stat-item {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+/* Formulare (angepasst) */
+.form {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.label {
+    margin-bottom: 5px;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Dokumentenverwaltung (neu organisiert) */
+.path-nav {
+    background-color: white;
+    padding: 12px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 20px 0;
+    font-size: 0.95rem;
+}
+
+.create-folder-form, .upload-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.create-folder-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.folder-list, .file-list {
+    list-style: none;
+    padding: 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.folder-list li, .file-list li {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#folder-list-item{
+    display: block;
+}
+
+.file-list a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.file-list a:hover {
+    color: var(--accent);
+}
+
+.delete-btn {
+    background-color: var(--error);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Chat Forum (original von dir) */
+#chatbox {
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.message {
+    margin: 5px 0;
+    padding: 8px 12px;
+    background-color: #e1f5fe;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+#message {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Live Stats (original von dir) */
+.live-panel {
+    background-color: #f5f7fa;
+    padding: 20px;
+    border-left: 6px solid var(--accent);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+}
+
+.live-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.live-item {
+    flex: 1;
+    min-width: 200px;
+    background: white;
+    padding: 12px 16px;
+    border-radius: 6px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.07);
+}
+
+.live-item span{
+    color: orange;
+}
+
+/* Protokoll (original von dir) */
+.log-list {
+    list-style: none;
+    padding: 0;
+}
+
+.log-list li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+/* Flash Messages (verbessert) */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.flash {
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    color: rgb(21, 187, 91);
+    background-color: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.flash-success {
+    background-color: var(--success);
+}
+
+.flash-error {
+    background-color: var(--error);
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wir gegen Die! – Dokumente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar-toggle">
+            <button onclick="toggleSidebar()">☰ Menü</button>
+        </div>
+
+        <aside class="sidebar">
+            <h2>Admin Menü</h2>
+            <nav>
+                <a href="{{ url_for('home') }}">🏠 Startseite</a>
+                <a href="{{ url_for('list_users') }}">📋 Mitglieder</a>
+                <a href="{{ url_for('chat') }}">💬 Chat</a>
+                <a href="{{ url_for('add_user') }}">➕ Mitglied hinzufügen</a>
+                <a href="{{ url_for('show_log') }}">📄 Protokoll</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header>
+                <h1 class="headline">📁 Dokumentenverwaltung</h1>
+                <p class="text">Verwalten Sie hier Dateien und Ordner</p>
+            </header>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for message in messages %}
+                            <div class="flash">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <nav class="path-nav" aria-label="Breadcrumb">
+                <strong>Pfad:</strong>
+                <a href="{{ url_for('dokumente') }}">Uploads</a>
+                {% for part in current_path.split('/') if part %}
+                    / <a href="{{ url_for('dokumente', subpath=current_path.split('/')[:loop.index]|join('/')) }}">{{ part }}</a>
+                {% endfor %}
+            </nav>
+
+            <form method="POST" class="create-folder-form" enctype="multipart/form-data" novalidate>
+                <input type="text" name="new_folder" placeholder="Neuer Ordnername" >
+                       
+                <button type="submit" class="btn">📁 Ordner erstellen</button>
+            </form>
+
+            <form method="POST" class="upload-form" enctype="multipart/form-data">
+                <label for="file">Datei hochladen:</label>
+                <input type="file" name="file" id="file" required>
+                <button type="submit" class="btn">⬆️ Hochladen</button>
+            </form>
+
+            <section>
+                <h2>📂 Ordner ({{ directories|length }})</h2>
+                {% if directories %}
+                    <ul class="folder-list">
+                        {% for folder in directories %}
+                            <li  id="folder-list-item">
+                                📁 <a href="{{ url_for('dokumente', subpath=[current_path, folder]|join('/')|trim('/')) }}">
+                                    {{ folder }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Keine Unterordner vorhanden</p>
+                {% endif %}
+            </section>
+
+            <section>
+                <h2>📄 Dateien ({{ files|length }})</h2>
+                {% if files %}
+                    <ul class="file-list">
+                        {% for file in files %}
+                            <li>
+                                <a href="{{ url_for('download_file', filename=[current_path, file]|join('/')|trim('/')) }}">
+                                    {{ file }}
+                                </a>
+                                <form method="POST" 
+                                      action="{{ url_for('delete_file', filename=[current_path, file]|join('/')|trim('/')) }}"
+                                      onsubmit="return confirm('Datei wirklich löschen?');">
+                                    <button type="submit" class="delete-btn">🗑️ Löschen</button>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Keine Dateien in diesem Verzeichnis</p>
+                {% endif %}
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('sidebar-open');
+        }
+    </script>
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='live.js') }}"></script>
+</body>
+</html>

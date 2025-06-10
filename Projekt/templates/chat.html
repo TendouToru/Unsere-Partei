@@ -1,0 +1,67 @@
+<!DOCTYPE html>>
+<html lang="de">
+<head>
+    <title>Wir gegen Die! - Chat Forum</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+
+</head>
+    <body>
+     <div class="wrapper">
+
+        <div class="sidebar-toggle">
+            <button onclick="toggleSidebar()">☰ Menü</button>
+        </div>
+
+        <aside class="sidebar">
+            <h2>Admin Menü</h2>
+            <nav>
+                <a href="{{ url_for('home') }}">🏠 Zurück zur Startseite</a>
+                <a href="{{ url_for('dokumente', subpath='') }}">📂 Dokumente</a>
+                <a href="{{ url_for('list_users') }}">📋 Mitgliederliste</a>
+                <a href="{{ url_for('add_user') }}">➕ Mitglied hinzufügen</a>  
+                <a href="{{ url_for('show_log')}}">📄 Protokoll</a>
+            </nav>
+        </aside>
+
+        <script>
+            function toggleSidebar() {
+                document.querySelector('.sidebar').classList.toggle('sidebar-open');
+            }
+        </script>
+
+
+        <main class="content">
+
+            <header>
+                <h1>📢 Chat Forum</h1>
+            </header>
+
+                <div id="chatbox">
+                    {% for msg in messages %}
+                        <div class="message">
+                            <strong>{{ msg.username }}</strong> [{{ msg.date }} | {{ msg.time }}]: {{ msg.message }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+
+                <input type="text" id="username" placeholder="Dein Name" required><br><br>
+                <textarea id="message" rows="3" cols="50" placeholder=" Deine Nachricht..." required></textarea><br><br>
+                <button onclick="sendMessage()">Absenden</button>
+
+                <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+                <script src="{{ url_for('static', filename='chat.js') }}"></script>
+
+        </main>
+
+
+
+    </div>
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='live.js') }}"></script>
+</body>
+</html>
