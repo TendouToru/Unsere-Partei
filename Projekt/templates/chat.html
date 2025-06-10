@@ -46,12 +46,12 @@
                     {% endfor %}
 
                 </div>
-
-
+                
+                <botton onclick="scrollToBottom" class="scroll">⬇️ Zur letzten Nachricht</botton>
 
                 <input type="text" id="username" placeholder="Dein Name" required><br><br>
                 <textarea id="message" rows="3" cols="50" placeholder=" Deine Nachricht..." required></textarea><br><br>
-                <button onclick="sendMessage()">Absenden</button>
+                <button onclick="sendMessage()" class="scroll">Absenden</button>
 
                 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
                 <script src="{{ url_for('static', filename='chat.js') }}"></script>
