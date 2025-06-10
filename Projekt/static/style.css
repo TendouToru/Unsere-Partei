@@ -307,6 +307,10 @@ input[type="date"] {
     background-color: #c0392b;
 }
 
+.btn{
+    padding-right: 3px;
+}
+
 /* Chat Forum (original von dir) */
 #chatbox {
     border: 1px solid #ccc;
