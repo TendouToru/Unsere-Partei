@@ -302,7 +302,7 @@ def get_stats():
     messages_today = ChatMessage.query.filter(ChatMessage.timestamp >= today).count()
     return {
         'messages_today': messages_today,
-        'next_event': "10.06.2025 - Gründungsmeeting"  # Eventabgriff
+        'next_event': "14.06.2025 - Gründungsmeeting"  # Eventabgriff
     }
 
 
