@@ -414,8 +414,10 @@ input[type="date"] {
 
 .flash-success {
     background-color: var(--success);
+    color: white;
 }
 
 .flash-error {
     background-color: var(--error);
+    color: white;
 }
