@@ -30,9 +30,11 @@ function addMessage(data) {
     chatbox.scrollTop = chatbox.scrollHeight;
 }
 
-function scrollToBottom{
+// Scrollen
+function scrolltobottom(){
     chatbox.scrollTop = chatbox.scrollHeight;
 }
+
 // Nachrichten vom Server empfangen
 socket.on('message', function(data) {
     addMessage(data);
