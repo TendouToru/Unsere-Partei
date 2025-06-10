@@ -335,6 +335,11 @@ input[type="date"] {
     margin-bottom: 10px;
 }
 
+.scroll{
+    margin-bottom: 10px;
+    padding: 5px 5px;
+}
+
 /* Live Stats (original von dir) */
 .live-panel {
     background-color: #f5f7fa;
