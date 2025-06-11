@@ -35,6 +35,11 @@
                 {% for entry in entries %}
                     <li>
                         <strong>{{ entry.timestamp.strftime("%d.%m.%Y %H:%M") }}</strong> - {{ entry.action }}
+
+                        <!-- Löschen-Formular -->
+                        <form method="POST" action="{{ url_for('delete_log_entry', entry_id=entry.id) }}" style="display:inline;">
+                            <button type="submit" class="delete-btn" id="log-dbtn">🗑️ [Löschen]</button>
+                        </form>
                     </li>
                 {% endfor %}
             </ul>
