@@ -305,12 +305,20 @@ def get_stats():
         'next_event': "14.06.2025 - Gründungsmeeting"  # Eventabgriff
     }
 
-
+# Protokoll
 @app.route("/log")
 def show_log():
     entries = LogEntry.query.order_by(LogEntry.timestamp.desc()).limit(100).all()
     return render_template("log.html", entries=entries)
-
+    
+# Löschen Protokoll
+@app.route('/log/delete/<int:entry_id>', methods=['POST'])
+def delete_log_entry(entry_id):
+    entry = LogEntry.query.get_or_404(entry_id)
+    db.session.delete(entry)
+    db.session.commit()
+    flash('Logeintrag gelöscht.', 'success')
+    return redirect(url_for('show_log')) 
 
 # Fehlerhandler für Upload-Limit überschritten
 @app.errorhandler(413)
