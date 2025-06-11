@@ -137,7 +137,7 @@ def dokumente(subpath):
         
         # Sicherheitsprüfung - ist der Pfad innerhalb des erlaubten Bereichs?
         if not current_path.startswith(base_dir):
-            flash("Zugriff außerhalb des erlaubten Bereichs verweigert.")
+            flash("Zugriff außerhalb des erlaubten Bereichs verweigert.", 'error')
             return redirect(url_for('dokumente', subpath=''))
             
         # Verzeichnis erstellen falls nicht vorhanden
@@ -189,7 +189,7 @@ def dokumente(subpath):
                     files.append(entry)
                     
         except Exception as e:
-            flash(f"Fehler beim Lesen des Verzeichnisses: {str(e)}")
+            flash(f"Fehler beim Lesen des Verzeichnisses: {str(e)}", 'error')
             return redirect(url_for('dokumente', subpath=''))
         
         # Template rendern
@@ -199,7 +199,7 @@ def dokumente(subpath):
                             current_path=safe_subpath)
                             
     except Exception as e:
-        flash(f"Schwerwiegender Fehler: {str(e)}")
+        flash(f"Schwerwiegender Fehler: {str(e)}", 'error')
         return redirect(url_for('dokumente', subpath=''))
 
 
@@ -208,18 +208,18 @@ def dokumente(subpath):
 def delete_file(filename):
     full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     if not is_safe_path(app.config['UPLOAD_FOLDER'], full_path):
-        flash("Ungültiger Pfad.")
+        flash("Ungültiger Pfad.", 'error')
         return redirect(url_for('dokumente', subpath=''))
 
     if os.path.exists(full_path):
         try:
             os.remove(full_path)
-            flash(f'Datei "{os.path.basename(filename)}" wurde erfolgreich gelöscht.')
+            flash(f'Datei "{os.path.basename(filename)}" wurde erfolgreich gelöscht.', 'success')
             log_action(f'Datei gelöscht: {filename}')
         except Exception as e:
-            flash(f'Fehler beim Löschen: {e}')
+            flash(f'Fehler beim Löschen: {e}', 'error')
     else:
-        flash('Datei nicht gefunden.')
+        flash('Datei nicht gefunden.', 'error')
 
     parent_path = os.path.dirname(filename)
     return redirect(url_for('dokumente', subpath=parent_path))
@@ -228,13 +228,13 @@ def delete_file(filename):
 def download_file(filename):
     full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     if not is_safe_path(app.config['UPLOAD_FOLDER'], full_path):
-        flash("Ungültiger Pfad.")
+        flash("Ungültiger Pfad.", 'error')
         return redirect(url_for('dokumente', subpath=''))
     
     if os.path.exists(full_path):
         return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
     else:
-        flash('Datei nicht gefunden.')
+        flash('Datei nicht gefunden.', 'error')
         return redirect(url_for('dokumente', subpath=os.path.dirname(filename)))
 
 # STATISTIKEN
@@ -317,7 +317,7 @@ def delete_log_entry(entry_id):
     entry = LogEntry.query.get_or_404(entry_id)
     db.session.delete(entry)
     db.session.commit()
-    flash('Logeintrag gelöscht.', 'success')
+    flash('Eintrag gelöscht.', 'success')
     return redirect(url_for('show_log')) 
 
 # Fehlerhandler für Upload-Limit überschritten
