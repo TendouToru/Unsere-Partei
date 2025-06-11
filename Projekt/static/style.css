@@ -387,6 +387,10 @@ input[type="date"] {
     border-radius: 4px;
 }
 
+#log-dbtn{
+    float: right;
+}
+
 /* Flash Messages (verbessert) */
 .flash-messages {
     position: fixed;
