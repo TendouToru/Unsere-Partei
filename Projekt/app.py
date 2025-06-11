@@ -241,8 +241,18 @@ def download_file(filename):
 @app.route('/stats')
 def stats():
     num_users = User.query.count()
-    num_files = count_files_recursive(app.config['UPLOAD_FOLDER'])
-    return render_template('stats.html', num_users=num_users, num_files=num_files)
+
+    num_files = 0
+    num_folders = 1
+
+    for root, dirs, files in os.walk(app.config['UPLOAD_FOLDER']):
+        num_files += len(files)
+        num_folders += len(dirs)
+
+    return render_template('stats.html',
+                           num_users=num_users,
+                           num_files=num_files,
+                           num_folders=num_folders)
 
 
 # CHAT-FORUM
