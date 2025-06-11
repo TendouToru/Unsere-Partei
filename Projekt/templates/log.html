@@ -31,6 +31,17 @@
             <header>
                 <h1 class="headline">Web-Protokoll</h1>
             </header>
+                
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        <div class="flash-messages">
+                            {% for category, message in messages %}
+                                <div class="flash flash-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            
             <ul class="log-list">
                 {% for entry in entries %}
                     <li>
